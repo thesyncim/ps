@@ -2,9 +2,9 @@ package ps
 
 //Product represent a PrestaShop Product
 type Product struct {
-	ID                       string
+	ID                       string `validate:"nonzero"`
 	Active                   string
-	Name                     string
+	Name                     string `validate:"nonzero"`
 	Categories               string
 	Price                    float64
 	TaxrulesID               string
@@ -32,7 +32,7 @@ type Product struct {
 	Unity                    string
 	Unitprice                string
 	Shortdescription         string
-	Description              string
+	Description              string `validate:"nonzero"`
 	Tags                     string //(x,y,z...)
 	Metatitle                string
 	Metakeywords             string
@@ -60,12 +60,12 @@ type Product struct {
 }
 
 type Category struct {
-	ID             string
+	ID             string `validate:"nonzero"`
 	Active         string
-	Name           string
+	Name           string `validate:"nonzero"`
 	ParentCategory string
 	Rootcategory   string //(0/1)
-	Description    string
+	Description    string `validate:"nonzero"`
 	Metatitle      string
 	Metakeywords   string
 	Meta           string

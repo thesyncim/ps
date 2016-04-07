@@ -14,6 +14,7 @@ import (
 	"strconv"
 
 	"github.com/jweir/csv"
+	"gopkg.in/validator.v2"
 	"regexp"
 
 	"path/filepath"
@@ -99,18 +100,31 @@ func (p *PrestaShop) SetProducts(products []Product) error {
 
 func (p *PrestaShop) SetCategories(products []Product) error {
 	p.Products = products
-	return p.validateProducts()
+	return p.validateCategories()
 }
 
 func (p *PrestaShop) validateProducts() error {
+
+	for i := range p.Products {
+		if err := validator.Validate(p.Products[i]); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
 func (p *PrestaShop) validateCategories() error {
+	for i := range p.Categories {
+		if err := validator.Validate(p.Categories[i]); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
 func (ps *PrestaShop) ImportProducts() error {
+
 	err := ps.genProductCSVs()
 	if err != nil {
 		return err
